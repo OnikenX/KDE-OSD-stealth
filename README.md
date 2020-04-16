@@ -6,6 +6,6 @@ sources: https://www.reddit.com/r/kde/comments/9j57z2/fixing_the_awful_volumebri
 
 to apply my changes just run `sh save.sh && sh restartshell.sh`
 
-the OsdItem.qml in /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/OsdItem.qml is saved for backup in original
+the OsdItem.qml in /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/OsdItem.qml is saved for backup in original/$(date +%s)
 
 the Osd.qml in /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/Osd.qml is saved for backup in original
