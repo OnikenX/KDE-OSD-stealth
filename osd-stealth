@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+
+#Original backup directory
+ORIGINALBACKUPD=.
+
+#save.sh
+TIMEFOLDER=$(date +%s)
+mkdir ./original/$TIMEFOLDER -p
+cp  /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/* $ORIGINALBACKUPD/original/$TIMEFOLDER
+sudo cp ./mine/* /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd
+
+#restartshell.sh
+kquitapp5 plasmashell 2> /dev/null && kstart5 plasmashell 2> /dev/null
