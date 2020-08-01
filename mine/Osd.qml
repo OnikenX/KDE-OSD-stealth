@@ -35,15 +35,16 @@ PlasmaCore.Dialog {
  // The X11BypassWindowManagerHint flag stops KWin from forcibly re-centering the OSD.
     flags: Qt.X11BypassWindowManagerHint | Qt.FramelessWindowHint
     
-    //position of where it should be
+    //Position of where it should be
     property int xPos: Math.round(Screen.width/25)
-    property int yPos: Screen.height - height - Math.round(Screen.width/25*(1+((Screen.height/Screen.width-1)*0.5)))
+    //property int yPos: Screen.height - height - Math.round(Screen.width/25*(1+((Screen.height/Screen.width-1)*0.5)))
+    property int yPos: 700
     
     x: xPos
     y: yPos
 
     // OSD Timeout in msecs - how long it will stay on the screen
-    property int timeout: 1800
+    property int timeout: 1000
     // This is either a text or a number, if showingProgress is set to true,
     // the number will be used as a value for the progress bar
     property var osdValue
