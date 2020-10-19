@@ -3,11 +3,135 @@
 #Original backup directory
 ORIGINALBACKUPD=.
 
+NEWCODE='/* THIS IS A MODIFIED VERSION
+ *
+ * Copyright 2014 Martin Klapetek <mklapetek@kde.org>
+ * Copyright 2014 Martin Klapetek <mklapetek@kde.org> (Original)
+ * Copyright 2019 Koneko-Nyaa (Changes)
+ * Thanks to Chris Holland <zrenfire@gmail.com> for inspiration.
+ * Copyright 2019 OnikenX (Changes) <onikenx@pm.me>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of
+ * the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+import QtQuick 2.0
+import QtQuick.Window 2.2
+import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.components 2.0 as PlasmaComponents
+import org.kde.plasma.extras 2.0 as PlasmaExtra
+
+PlasmaCore.Dialog {
+    id: root
+    location: PlasmaCore.Types.Floating
+    type: PlasmaCore.Dialog.OnScreenDisplay
+    outputOnly: true
+
+ // The X11BypassWindowManagerHint flag stops KWin from forcibly re-centering the OSD.
+    flags: Qt.X11BypassWindowManagerHint | Qt.FramelessWindowHint
+    
+    //Position of where it should be
+    property int xPos: Math.round(Screen.width * 0.03)
+    property int yPos: Screen.height - Math.round(Screen.height* 0.1)
+    x: xPos
+    y: yPos
+
+    // OSD Timeout in msecs - how long it will stay on the screen
+    property int timeout: 800
+    // This is either a text or a number, if showingProgress is set to true,
+    // the number will be used as a value for the progress bar
+    property var osdValue
+    // Maximum percent value
+    property int osdMaxValue: 100
+    // Icon name to display
+    property string icon
+    // Set to true if the value is meant for progress bar,
+    // false for displaying the value as normal text
+    property bool showingProgress: false
+
+    mainItem: OsdItem {
+        rootItem: root
+    }
+}
+'
+
 #save.sh
-TIMEFOLDER=$(date +%s)
-mkdir ./original/$TIMEFOLDER -p
-cp  /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/* $ORIGINALBACKUPD/original/$TIMEFOLDER
-sudo cp ./mine/* /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd
+function backup(){
+    TIMEFOLDER=$(date +%s)
+    mkdir $1/original/$TIMEFOLDER -p
+    cp  /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/Osd.qml $1/original/$TIMEFOLDER
+}
+
+function applychanges(){
+    sudo bash -c "printf \"$NEWCODE\" >  /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/Osd.qml"
+}
 
 #restartshell.sh
-kquitapp5 plasmashell 2> /dev/null && kstart5 plasmashell 2> /dev/null
+function restartshell(){
+    kquitapp5 plasmashell 2> /dev/null && kstart5 plasmashell 2> /dev/null
+}
+
+function usage {
+        echo "Usage: $(basename $0) [-harb BACKUP_FOLDER]" 2>&1
+        echo '   -h   shows this message'
+        echo '   -b   does a backup of the file, needs an argument'
+        echo '   -a   applies the change to the couner'
+        echo '   -r   restarts the kwin shell'
+        #echo '   -e   restore' TODO
+        exit 1
+}
+
+if [[ ${#} -eq 0 ]]; then
+   usage
+fi
+
+# Define list of arguments expected in the input
+optstring="harb:"
+let apply=0
+let reboot=0
+while getopts ${optstring} arg; do
+  case "${arg}" in
+    h)  usage ;;
+    b)  if test -e
+
+        backup $OPTARG;;
+    a)  let apply=1 ;;
+    r)  let reboot=1  ;;
+
+    ?)  echo "Invalid option: -${OPTARG}."
+        echo
+        usage
+        ;;
+  esac
+done
+
+# # Debug output
+# echo "All ARGS: ${@}"
+# echo "1st arg: $1"
+# echo "2nd arg: $2"
+# echo "3rd arg: $3"
+# echo "4th arg: $4"
+
+# # Inspect OPTIND
+# echo "OPTIND: $OPTIND"
+
+if [[ $apply == 1 ]]
+then
+    applychanges
+fi
+
+if [[ $reboot == 1 ]]
+then
+    restartshell
+fi
+    
