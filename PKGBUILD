@@ -15,8 +15,8 @@ source=(
    'remove-kde-osd-stealth.hook::https://raw.githubusercontent.com/OnikenX/KDE-OSD-stealth/5.20%2B/remove-kde-osd-stealth.hook'
 )
 
-sha256sums=('44a12aa3ff7f54b339a52b2e3faf0db94cb58834cd608e0ca0ebd847352afeb1'
-            'bd583e4c1dd7579751eb6a7da0f0a2e1a59df1b40701fc172b66aa6db49abf0a'
+sha256sums=('0d0c00960ab8998a09dc2904ce1c224887722c92515d0694e4488ddecd5dfe1d'
+            '3244158e4cf2efecb706e69770eb30b9e328b4484da19637a1c09a1eca0b4ffa'
             '9741ea34984149bedccd2f5366a4d80e82bc1ffefc97456ac609f114904a4f42'
 )
 
