@@ -1,0 +1,19 @@
+#/etc/pacman.d/hooks/apply-kde-osd-stealth.hook
+
+#2021.01.05
+#
+#--if plasma-workspace is 
+#--modified then run osd-stealth
+
+[Trigger]
+Operation = Upgrade
+Operation = Install
+Operation = Remove
+Type = Package
+Target = plasma-workspace
+
+[Action]
+Description = Applying kde-osd-stealth
+When = PostTransaction
+Exec = /usr/bin/osd-stealth -a
+

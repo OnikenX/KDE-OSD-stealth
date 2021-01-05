@@ -1,5 +1,5 @@
 /* THIS IS A MODIFIED VERSION
-*
+ *
  * Copyright 2014 Martin Klapetek <mklapetek@kde.org>
  * Copyright 2014 Martin Klapetek <mklapetek@kde.org> (Original)
  * Copyright 2019 Koneko-Nyaa (Changes)

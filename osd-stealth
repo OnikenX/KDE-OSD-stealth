@@ -1,7 +1,6 @@
 #!/usr/bin/bash
 
-#Original backup directory
-ORIGINALBACKUPD=.
+originalfile='/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/Osd.qml'
 
 NEWCODE='/* THIS IS A MODIFIED VERSION
  *
@@ -65,15 +64,26 @@ PlasmaCore.Dialog {
 }
 '
 
-#save.sh
+function restorechanges {
+  if test -f $originalfile.bck > /dev/null
+  then
+    sudo cp $originalfile.bck $originalfile
+  else
+    echo Backup does not exist
+    exit 2
+  fi
+}
+
 function backup(){
-    TIMEFOLDER=$(date +%s)
-    mkdir $1/original/$TIMEFOLDER -p
-    cp  /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/Osd.qml $1/original/$TIMEFOLDER
+  if ! printf $NEWCODE | diff -q - $originalfile > /dev/null
+  then
+    sudo cp $originalfile $originalfile.bck
+  fi
 }
 
 function applychanges(){
-    sudo bash -c "printf \"$NEWCODE\" >  /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/Osd.qml"
+    backup
+    bash -c "printf \"$NEWCODE\" > $originalfile" 
 }
 
 #restartshell.sh
@@ -84,10 +94,9 @@ function restartshell(){
 function usage {
         echo "Usage: $(basename $0) [-harb BACKUP_FOLDER]" 2>&1
         echo '   -h   shows this message'
-        echo '   -b   does a backup of the file, needs an argument'
         echo '   -a   applies the change to the couner'
         echo '   -r   restarts the kwin shell'
-        #echo '   -e   restore' TODO
+        echo '   -u   restores the default configuration'
         exit 1
 }
 
@@ -96,20 +105,20 @@ if [[ ${#} -eq 0 ]]; then
 fi
 
 # Define list of arguments expected in the input
-optstring="harb:"
+optstring="haru"
 let apply=0
 let reboot=0
 while getopts ${optstring} arg; do
   case "${arg}" in
     h)  usage ;;
-    b)  backup $OPTARG;;
     a)  let apply=1
-        printf apply
         ;;
         
     r)  let reboot=1
-        restartshell  
-      ;;
+        ;;
+
+    u)  let restore=1
+        ;;
 
     ?)  echo "Invalid option: -${OPTARG}."
         echo
@@ -118,23 +127,31 @@ while getopts ${optstring} arg; do
   esac
 done
 
-# # Debug output
-# echo "All ARGS: ${@}"
-# echo "1st arg: $1"
-# echo "2nd arg: $2"
-# echo "3rd arg: $3"
-# echo "4th arg: $4"
-
-# # Inspect OPTIND
-# echo "OPTIND: $OPTIND"
-
+function verify_message(){
+  echo You can not restore and apply at the same time.
+  exit 3
+}
+  
 if [[ $apply == 1 ]]
 then
+    if [[ $restore == 1 ]]
+    then
+      verify_message
+    fi
     applychanges
+fi
+
+if [[ $restore == 1 ]]
+then
+    if [[ $apply == 1 ]]
+    then
+      verify_message
+    fi
+    restorechanges
 fi
 
 if [[ $reboot == 1 ]]
 then
     restartshell
 fi
-    
+

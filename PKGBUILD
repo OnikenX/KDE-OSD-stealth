@@ -7,11 +7,14 @@ arch=('any')
 url="https://github.com/OnikenX/KDE-OSD-stealth"
 license=('GPLv3')
 
-depends=('sudo')
+depends=('sudo' 'plasma-workspace')
 
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/OnikenX/KDE-OSD-stealth/archive/v${pkgver}.tar.gz")
 
 package() {
   cd "$srcdir/$pkgname-$pkgver"
- install 
+ install
+}
+install(){
+
 }
