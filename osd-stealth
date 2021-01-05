@@ -1,4 +1,4 @@
-/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/Osd.qml:#!/usr/bin/bash
+#!/usr/bin/bash
 
 originalfile='/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/Osd.qml'
 
@@ -63,6 +63,16 @@ PlasmaCore.Dialog {
     }
 }
 '
+function exit_issue(){
+  echo Please make an issue in https://github.com/OnikenX/KDE-OSD-stealth/issues 
+  exit $1
+}
+
+if test -f originalfile
+then 
+  echo There is no file to override.
+  exit_issue 4
+fi
 
 function restorechanges {
   if test -f $originalfile.bck > /dev/null
@@ -70,7 +80,7 @@ function restorechanges {
     sudo mv $originalfile.bck $originalfile
   else
     echo Backup does not exist
-    exit 2
+    exit_issue 2
   fi
 }
 
@@ -97,7 +107,7 @@ function usage {
         echo '   -a   applies the change to the couner'
         echo '   -r   restarts the kwin shell'
         echo '   -u   restores the default configuration'
-        exit 1
+        exit_issue 1
 }
 
 if [[ ${#} -eq 0 ]]; then
@@ -129,7 +139,7 @@ done
 
 function verify_message(){
   echo You can not restore and apply at the same time.
-  exit 3
+  exit_issue 3
 }
   
 if [[ $apply == 1 ]]
