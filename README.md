@@ -16,7 +16,8 @@ KDE-OSD-Stealth puts the osd (the audio, microfone and brightness slider in the 
 
 ## Installation:
 
-To install in  ArchLinux with pacman hooks an AUR in being in the making 😉.
+To install in  ArchLinux with pacman hooks an PKGBUILD can be found in the releases, install with:
+```pacman -U <package_name>```
 
 - For a general installation you can install it with:
 ```bash
@@ -27,4 +28,3 @@ curl https://raw.githubusercontent.com/OnikenX/KDE-OSD-stealth/5.20%2B/INSTALL |
 ```bash
 curl https://raw.githubusercontent.com/OnikenX/KDE-OSD-stealth/5.20%2B/UNINSTALL | sudo bash
 ``` 
-
