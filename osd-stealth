@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/Osd.qml:#!/usr/bin/bash
 
 originalfile='/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/Osd.qml'
 
@@ -67,7 +67,7 @@ PlasmaCore.Dialog {
 function restorechanges {
   if test -f $originalfile.bck > /dev/null
   then
-    sudo cp $originalfile.bck $originalfile
+    sudo mv $originalfile.bck $originalfile
   else
     echo Backup does not exist
     exit 2

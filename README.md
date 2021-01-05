@@ -1,16 +1,30 @@
 # KDE-OSD
 
-
+### Thanks:
 my thanks for Koneko-Nyaa for creating this post:
 sources: https://www.reddit.com/r/kde/comments/9j57z2/fixing_the_awful_volumebrightness_osd_size/
 
-~~to apply my changes just run `sh save.sh && sh restartshell.sh`~~
-~~the OsdItem.qml in /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/OsdItem.qml is saved for backup in original/$(date +%s)~~
-~~the Osd.qml in /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/Osd.qml is saved for backup in original~~
+## Introduction:
 
-now you have **osd-stealth**, this one is a wrapper for save and restartshell, it can be put anywhere, by default it uses the current directory to save backups but you can change the **BACKUPORIGINALD** to change where to save the backups this so you can put the executable in ./local/bin or /bin
+KDE-OSD-Stealth puts the osd (the audio, microfone and brightness slider in the middle of the screen) in the left inferior conner.
 
-if you want to disable backups just comment the line that copies the original files to the folder original
+### Original: 
+![](./img/old.png)
 
-## 
+### OSD-Stealth:
+![](./img/new.png)
+
+## Installation:
+
+To install in  ArchLinux with pacman hooks an AUR in being in the making 😉.
+
+- For a general installation you can install it with:
+```bash
+curl https://raw.githubusercontent.com/OnikenX/KDE-OSD-stealth/5.20%2B/INSTALL | sudo bash
+```
+
+- To remove the general installation:x
+```bash
+curl https://raw.githubusercontent.com/OnikenX/KDE-OSD-stealth/5.20%2B/UNINSTALL | sudo bash
+``` 
 

@@ -1,0 +1,6 @@
+#!/bin/bash
+osd-stealth -u
+rm /usr/bin/osd-stealth 
+
+#arch especific files
+#/etc/pacman.d/hooks/apply-kde-osd-stealth.hook /etc/pacman.d/hooks/remove-kde-osd-stealth.hook

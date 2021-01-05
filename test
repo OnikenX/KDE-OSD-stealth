@@ -1,9 +1,0 @@
-#!/bin/bash
-
-if ! cat LICENSE | diff -q - /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/Osd.qml 
-  then
-    echo igual 
-  else 
-    echo diferente
-fi
-

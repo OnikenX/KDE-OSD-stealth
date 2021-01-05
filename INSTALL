@@ -1,0 +1,6 @@
+#!/bin/bash
+curl https://raw.githubusercontent.com/OnikenX/KDE-OSD-stealth/5.20%2B/osd-stealth > /usr/bin/osd-stealth
+
+# ArchLinux expecific files
+# curl https://raw.githubusercontent.com/OnikenX/KDE-OSD-stealth/5.20%2B/apply-kde-osd-stealth.hook > /etc/pacman.d/hooks/apply-kde-osd-stealth.hook
+# curl https://raw.githubusercontent.com/OnikenX/KDE-OSD-stealth/5.20%2B/remove-kde-osd-stealth.hook > /etc/pacman.d/hooks/remove-kde-osd-stealth.hook

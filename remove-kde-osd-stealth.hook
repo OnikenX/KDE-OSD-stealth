@@ -1,0 +1,16 @@
+#/etc/pacman.d/hooks/apply-kde-osd-stealth.hook
+
+#2021.01.05
+#
+#--revert changes
+
+[Trigger]
+Operation = Remove
+Type = Package
+Target = plasma-workspace
+Target = kde-osd-stealth
+
+[Action]
+Description = Reverting changes from kde-osd-stealth
+When = PreTransaction
+Exec = /usr/bin/osd-stealth -u
